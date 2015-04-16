@@ -7,10 +7,10 @@ alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
 # Shortcuts
-alias d="cd ~/Documents/Dropbox"
+alias d="cd ~/Documents"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
-alias p="cd ~/projects"
+alias c="cd ~/Code"
 alias g="git"
 alias h="history"
 alias j="jobs"
@@ -32,6 +32,7 @@ alias dashcode="open -a dashcode"
 alias f='open -a Finder'
 alias fireworks="open -a '/Applications/Adobe Fireworks CS6/Adobe Fireworks CS6.app'"
 alias photoshop="open -a '/Applications/Adobe Photoshop CS6/Adobe Photoshop.app'"
+alias illustrator="open -a '/Applications/Adobe Illustrator CS6/Adobe Illustrator.app'"
 alias gpr="~/code/gpr $1"
 
 # Thanks to stefanpenner for this one.
@@ -39,7 +40,6 @@ alias gpr="~/code/gpr $1"
 alias nom="rm -rf node_modules && npm cache clear && npm i"
 
 # general shortcuts
-alias pro="cd ~/projects"
 alias gh="open -a google\ chrome 'http://github.com/addyosmani'"
 alias bl="open -a google\ chrome 'http://browserling.com'"
 
