@@ -50,6 +50,12 @@ alias please=sudo
 alias bunyip='node ~/code/bunyip/cli.js'
 alias spotify="osascript ~/code/SpotifyControl/SpotifyControl.scpt"
 
+# Short-cuts for copy-paste.
+alias c='pbcopy'
+alias p='pbpaste'
+
+# Remove all items safely, to Trash (`brew install trash`).
+alias rm='trash'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
