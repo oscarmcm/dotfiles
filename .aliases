@@ -43,6 +43,9 @@ alias nom="rm -rf node_modules && npm cache clear && npm i"
 alias gh="open -a google\ chrome 'http://github.com/addyosmani'"
 alias bl="open -a google\ chrome 'http://browserling.com'"
 
+# dev shortcuts
+alias server="python -m SimpleHTTPServer 3000"
+
 # be nice
 alias please=sudo
 
