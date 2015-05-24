@@ -10,10 +10,11 @@ This repo contains my personal dotfiles and are heavily based on [paul](https://
 * Launch all browsers with a specific URL `browsers "http://google.com"`
 * My Sublime Text build files (Grunt, Yeoman, r.js, SASS, Less and a few others included)
 * [@cowboy](http://github.com/cowboy)'s GitHub Pull Request Helper
+* Auto-completion and Syntax highlighting.
 
 ## install the neccessary apps
 
-My basic setup is captured in `install-deps.sh` which adds homebrew, z, nave, etc.
+My basic setup is captured in `install-deps.sh` which adds homebrew, zsh, trash, z, nave, etc.
 
 ## private config
 
@@ -107,7 +108,7 @@ I recommend getting a [`.jshintrc`](https://github.com/jshint/node-jshint/blob/m
 ## Installation
 
 ```bash
-git clone https://github.com/addyosmani/dotfiles.git && cd dotfiles && ./sync.sh
+git clone https://github.com/oscarmcm/dotfiles.git && cd dotfiles && ./sync.sh
 ```
 
 To update later on, just run the sync again.
