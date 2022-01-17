@@ -1,0 +1,53 @@
+[user]
+    name = Oscar Cortez
+    email = om.cortez.2010@gmail.com
+
+[alias]
+    lg = log -p
+    discard = reset --hard HEAD
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    recap = log --since=\"00:00:00\" --no-merges --oneline --author=om.cortez.2010@gmail.com
+
+[push]
+    default = current
+
+[color]
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+    ui = auto
+
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+
+[core]
+    editor = vim
+    excludesfile = /Users/loki/.gitignore_global
+
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+
+[delta]
+    features = decorations
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+    theme = "gruvbox-dark"
+
+[delta "decorations"]
+    # commit-decoration-style = blue ol
+    # commit-style = raw
+    # file-style = omit
+    # hunk-header-decoration-style = blue box
+    # hunk-header-file-style = red
+    # hunk-header-line-number-style = "#067a00"
+    # hunk-header-style = file line-number syntax
+    line-numbers = true
+    side-by-side = false
+    theme = "gruvbox-dark"
+

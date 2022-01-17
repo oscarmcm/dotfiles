@@ -1,0 +1,42 @@
+[ui]
+username = Oscar Cortez <oscar@netlandish.com>
+editor = vim
+ignore = ~/.hgignore
+merge = internal:merge
+ssh = ssh -C
+
+[pager]
+pager = delta --dark
+
+[alias]
+b = branches
+st = status -SC
+? = summary
+lg = log -G --pager always --color always --template '\033[0;31m{node|short} \033[0;34m({author|person}) - \033[0;33m{tags} {bookmarks} {branches} \033[0m{desc|firstline|strip} \033[0;32m({date|age})\033[0m\n'
+slog = log --template '{rev}:{node|short} {desc|firstline}\n'
+llog = log -b .
+show = log --stat --pager=always -pr
+wip = log --graph --rev=wip --template=wip
+c = commit -m
+out = vdiff -r "p1(first(outgoing()))" -r "last(outgoing())"
+pull = pull --rebase
+
+[extensions]
+color =
+strip =
+rebase =
+purge =
+mercurial_dynamic_username = /Users/oscarmcm/.local/lib/python3.7/site-packages/mercurial_dynamic_username.py
+shelve =
+
+[revsetalias]
+wip = (parents(not public()) or not public() or . or head()) and (not obsolete() or unstable()^) and not closed()
+
+[templates]
+wip = '{label("log.branch", ifeq(branch, "default", "", branch))} {label("changeset.{phase}", rev)} {label("grep.user", author|user)}{label("log.tag", if(tags," {tags}"))} {bookmarks % "{ifeq(bookmark, currentbookmark, label('log.activebookmark', bookmark), label('log.bookmark', bookmark))} "}\n{label(ifcontains(rev, revset('parents()'), 'desc.here'),desc|firstline)}'
+
+
+[dynamic_username]
+work.location = ~/Code/Netlandish
+work.username = Oscar Cortez <oscar@netlandish.com>
+
