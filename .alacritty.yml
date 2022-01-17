@@ -1,0 +1,186 @@
+#
+# modified 2021-26-28
+#
+
+live_config_reload: true
+
+env:
+  # This value is used to set the `$TERM` environment variable for
+  # each instance of Alacritty. If it is not present, alacritty will
+  # check the local terminfo database and use `alacritty` if it is
+  # available, otherwise `xterm-256color` is used.
+  TERM: xterm-256color
+
+window:
+  # Spread additional padding evenly around the terminal content.
+  padding:
+    x: 10
+    y: 40
+  dynamic_padding: true
+  # Remove buttons
+  decorations: transparent
+  # Open in full screen
+  startup_mode: Maximized
+
+# Make background slightly transparent
+background_opacity: 1
+
+cursor:
+  # Block Underline or Beam
+  style: Block
+  blinking: On
+
+font:
+  normal:
+    family: JetBrains Mono
+    style: Regular
+  bold:
+    family: JetBrains Mono
+    style: Bold
+  italic:
+    family: JetBrains Mono
+    style: Italic
+  bold_italic:
+    family: JetBrains Mono
+    style: Bold Italic
+  size: 14
+  use_thin_strokes: true
+  offset:
+    x: 0
+    y: 0
+  glyph_offset:
+    x: 0
+    y: 0
+
+# If `true`, bold text is drawn using the bright color variants.
+# draw_bold_text_with_bright_colors: true
+
+schemes:
+  catppuccin: &cat
+    # Default colors
+    primary:
+      background: '0x1E1D2F'
+      foreground: '0xD9E0EE'
+
+    # Colors the cursor will use if `custom_cursor_colors` is true
+    cursor:
+      text: '0x1E1D2F'
+      cursor: '0xF5E0DC'
+
+    # Normal colors
+    normal:
+      black:   '0x6E6C7E'
+      red:     '0xF28FAD'
+      green:   '0xABE9B3'
+      yellow:  '0xFAE3B0'
+      blue:    '0x96CDFB'
+      magenta: '0xF5C2E7'
+      cyan:    '0x89DCEB'
+      white:   '0xD9E0EE'
+
+    # Bright colors
+    bright:
+      black:   '0x988BA2'
+      red:     '0xF28FAD'
+      green:   '0xABE9B3'
+      yellow:  '0xFAE3B0'
+      blue:    '0x96CDFB'
+      magenta: '0xF5C2E7'
+      cyan:    '0x89DCEB'
+      white:   '0xD9E0EE'
+
+    indexed_colors:
+      - { index: 16, color: '0xF8BD96' }
+      - { index: 17, color: '0xF5E0DC' }
+
+  gruvbox_light: &light
+    # Colors (Gruvbox light)
+    primary:
+      # hard contrast: background = '#f9f5d7'
+      background: '#fbf1c7'
+      # soft contrast: background = '#f2e5bc'
+      foreground: '#3c3836'
+
+    # Normal colors
+    normal:
+      black:   '#fbf1c7'
+      red:     '#cc241d'
+      green:   '#98971a'
+      yellow:  '#d79921'
+      blue:    '#458588'
+      magenta: '#b16286'
+      cyan:    '#689d6a'
+      white:   '#7c6f64'
+
+    # Bright colors
+    bright:
+      black:   '#928374'
+      red:     '#9d0006'
+      green:   '#79740e'
+      yellow:  '#b57614'
+      blue:    '#076678'
+      magenta: '#8f3f71'
+      cyan:    '#427b58'
+      white:   '#3c3836'
+
+  gruvbox_dark: &dark
+    # Colors (Gruvbox dark)
+    primary:
+      # hard contrast background - '#1d2021'
+      background:        &gruvbox_dark_bg '#282828'
+      # soft contrast background - '#32302f'
+      foeground:        '#ebdbb2'
+      bright_foreground: '#fbf1c7'
+      dim_foreground:    '#a89984'
+    cursor:
+      text:   CellBackground
+      cursor: CellForeground
+    vi_mode_cursor:
+      text:   CellBackground
+      cursor: CellForeground
+    # search:
+    #   matches:
+    #     foreground: '#000000'
+    #     background: '#ffffff'
+    #   focused_match:
+    #    foreground: CellBackground
+    #    background: CellForeground
+    #   bar:
+    #     background: ''
+    #     foreground: ''
+    # line_indicator:
+    #   foreground: None
+    #   background: None
+    selection:
+      text:       CellBackground
+      background: CellForeground
+    bright:
+      black:   '#928374'
+      red:     '#fb4934'
+      green:   '#b8bb26'
+      yellow:  '#fabd2f'
+      blue:    '#83a598'
+      magenta: '#d3869b'
+      cyan:    '#8ec07c'
+      white:   '#ebdbb2'
+    normal:
+      black:   *gruvbox_dark_bg
+      red:     '#cc241d'
+      green:   '#98971a'
+      yellow:  '#d79921'
+      blue:    '#458588'
+      magenta: '#b16286'
+      cyan:    '#689d6a'
+      white:   '#a89984'
+    dim:
+      black:   '#32302f'
+      red:     '#9d0006'
+      green:   '#79740e'
+      yellow:  '#b57614'
+      blue:    '#076678'
+      magenta: '#8f3f71'
+      cyan:    '#427b58'
+      white:   '#928374'
+    # indexed_colors: []
+
+colors: *cat
