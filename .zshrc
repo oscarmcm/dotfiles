@@ -7,6 +7,8 @@ fi
 
 source /opt/homebrew/share/antigen/antigen.zsh
 
+export ANTIGEN_LOG=$HOME/.antigen/antigen.log
+
 # antigen use oh-my-zsh
 
 # antigen bundle git
@@ -21,12 +23,15 @@ source /opt/homebrew/share/antigen/antigen.zsh
 
 antigen bundle wfxr/forgit
 antigen bundle agkozak/zsh-z
-antigen bundle zsh-users/zsh-syntax-highlighting
+# antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
 antigen bundle zsh-users/zsh-completions
+antigen bundle Aloxaf/fzf-tab
 antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle changyuheng/zsh-interactive-cd
+antigen bundle zdharma-continuum/fast-syntax-highlighting
+# antigen bundle changyuheng/zsh-interactive-cd
 # antigen bundle subnixr/minimal
+# antigen bundle SleepyBag/fuzzy-fs
 antigen theme romkatv/powerlevel10k
 
 antigen apply
@@ -47,7 +52,22 @@ zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion::complete:*' cache-path  ':completion:*' list-colors ''
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
-## ZSH-specific shell environment flags only relvant to interactive shells
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# preview directory's content with exa when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
+# switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
+# use tmux popup for autocomplete
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
+# source ~/fuzzy-fs/fuzzy-fs
+
+# ZSH-specific shell environment flags only relvant to interactive shells
 # Variable behaviors
 setopt NO_ALL_EXPORT		# Don't export all variables to environment
 
@@ -118,11 +138,16 @@ bindkey "${terminfo[kcbt]}" reverse-menu-complete
 # Created by `pipx` on 2022-01-07 03:47:16
 export PATH="$PATH:/Users/loki/.local/bin"
 
-# Bat Config
-# export BAT_CONFIG_PATH="~/.bat.conf"
+# Poetry config
+export POETRY_CACHE_DIR="/Users/loki/.cache/pypoetry"
+export POETRY_VIRTUALENVS_PATH="/Users/loki/.virtualenvs"
+
+# Pip config
+export PIP_CACHE_DIR="/Users/loki/.cache/pip"
 
 # VIM config
 # export VIMINIT="source ~/.config/vim/vimrc"
+
 alias vim='vim -u ~/.config/vim/vimrc'
 
 # Mercurial alias
@@ -247,6 +272,16 @@ bcp() {
   fi
 }
 
+# List running services
+# https://gist.github.com/LeZuse/09b5c3e8c839ebe415975e5e45fc96bf
+services() {
+  brew services \
+    `echo -e 'list\nstart\nstop' | fzf --header 'brew services'` \
+    `brew services list | tail -n +2 | \
+      fzf -d' ' --with-nth=1 --preview='brew services list | grep {}' --preview-window=up:1 | \
+      cut -d' ' -f1`
+}
+
 # fkill - kill processes - list only the ones you can kill.
 fkill() {
     local pid
@@ -283,26 +318,27 @@ fcs() {
 }
 
 alias gst='git status'
+alias gitui='~/.gitui'
 
-function cd() {
-    if [[ "$#" != 0 ]]; then
-        builtin cd "$@";
-        return
-    fi
-    while true; do
-        local lsd=$(echo ".." && ls -p | grep '/$' | sed 's;/$;;')
-        local dir="$(printf '%s\n' "${lsd[@]}" |
-            fzf --reverse --preview '
-                __cd_nxt="$(echo {})";
-                __cd_path="$(echo $(pwd)/${__cd_nxt} | sed "s;//;/;")";
-                echo $__cd_path;
-                echo;
-                ls -p -FG "${__cd_path}";
-        ')"
-        [[ ${#dir} != 0 ]] || return 0
-        builtin cd "$dir" &> /dev/null
-    done
-}
+#function cd() {
+#    if [[ "$#" != 0 ]]; then
+#        builtin cd "$@";
+#        return
+#    fi
+#    while true; do
+#        local lsd=$(echo ".." && ls -p | grep '/$' | sed 's;/$;;')
+#        local dir="$(printf '%s\n' "${lsd[@]}" |
+#            fzf --reverse --preview '
+#                __cd_nxt="$(echo {})";
+#                __cd_path="$(echo $(pwd)/${__cd_nxt} | sed "s;//;/;")";
+#                echo $__cd_path;
+#                echo;
+#                ls -p -FG "${__cd_path}";
+#        ')"
+#        [[ ${#dir} != 0 ]] || return 0
+#        builtin cd "$dir" &> /dev/null
+#    done
+#}
 
 # tmux
 alias tma='tmux attach -t'
@@ -359,7 +395,7 @@ fif() {
 				--preview-window="70%:wrap"
 	)" &&
 	echo "opening $file" &&
-	vim "$file"
+	vim $file
 }
 
 # ftpane - switch pane (@george-b)
@@ -421,17 +457,9 @@ alias ln='ln -i'
 # matterhorn chat
 alias matterhorn='~/.matterhorn-50200.15.0-Darwin-x86_64/matterhorn'
 
-# Python Virtualenv Wrapper
-# export WORKON_HOME=~/.virtualenvs
-# export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-# export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
-# source /usr/local/bin/virtualenvwrapper_lazy.sh
+# Postgress app
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 
-# postgress app
-# export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/10/bin
-
-# redis app
-# export PATH="/Applications/Redis.app/Contents/Resources/Vendor/redis/bin:$PATH"
 
 # load NVM (via brew)
 # export NVM_DIR="$HOME/.nvm"
@@ -442,6 +470,11 @@ alias matterhorn='~/.matterhorn-50200.15.0-Darwin-x86_64/matterhorn'
 # export LDFLAGS="-L/usr/local/opt/zlib/lib"
 # export CPPFLAGS="-I/usr/local/opt/zlib/include"
 
+# PyODBC
+# https://github.com/mkleehammer/pyodbc/issues/846#issuecomment-816166371
+export LDFLAGS="-L/opt/homebrew/Cellar/unixodbc/2.3.9_1/lib"
+export CPPFLAGS="-I/opt/homebrew/Cellar/unixodbc/2.3.9_1/include"
+
 # Lang Config
 # export LC_ALL=en_US.UTF-8
 # export LANG=en_US.UTF-8
@@ -450,5 +483,9 @@ alias matterhorn='~/.matterhorn-50200.15.0-Darwin-x86_64/matterhorn'
 # MNML_RPROMPT=();
 # MNML_PROMPT=('mnml_cwd 1 10' branch_prompt_info mnml_ssh mnml_status mnml_keymap)
 
+# GPG Stuff
+export GPG_TTY=$(tty)
+
 # Created by `userpath` on 2020-08-06 17:07:30
 # export PATH="$PATH:/Users/oscarmcm/.local/bin"
+eval "$(pyenv init -)"
